@@ -7,7 +7,9 @@ import {
   Link
 } from "react-router-dom";
 
-import Login from './pages/login';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Erro404 from './pages/Erro404';
 
 import './App.css';
 import 'antd/dist/antd.css';
@@ -21,8 +23,12 @@ function App() {
           <Login />
         </Route>
 
-        <Route path={'/'} >
-          <Login />
+        <Route path={'/home'} >
+          <Home />
+        </Route>
+
+        <Route path={'/*'} >
+          <Erro404 />
         </Route>
 
       </Switch>
