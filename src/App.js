@@ -27,8 +27,12 @@ function App() {
           <Home />
         </Route>
 
-        <Route path={'/*'} >
+        <Route path={'/erro404'} >
           <Erro404 />
+        </Route>
+
+        <Route path={'/'} >
+          <Login />
         </Route>
 
       </Switch>

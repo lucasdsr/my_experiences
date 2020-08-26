@@ -6,10 +6,10 @@ import {
     Typography,
 } from 'antd';
 
-const Footer = () => {
+const Footer = props => {
     const {
         title,
-    } = this.props;
+    } = props;
 
     return (
         <Layout.Footer>

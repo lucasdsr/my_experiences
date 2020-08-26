@@ -7,8 +7,8 @@ import {
 import Header from '../Header';
 import Footer from '../Footer';
 
-const MainLayout = () => {
-    const { content } = this.props;
+const MainLayout = props => {
+    const { content } = props;
     
     return (
         <Layout>

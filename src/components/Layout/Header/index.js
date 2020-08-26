@@ -6,21 +6,21 @@ import {
     Typography,
 } from 'antd';
 
-const Header = () => {
+const Header = props => {
     const {
         title,
-    } = this.props;
+    } = props;
 
     return (
         <Layout.Header>
-            <Typography.Title>
+            <Typography.Title style={{ color: 'white' }}>
                 {title}
             </Typography.Title>
         </Layout.Header>
     )
 };
 
-Header.propTypes = {
+Header.defaultProps = {
     title: 'HEADER',
 }
 

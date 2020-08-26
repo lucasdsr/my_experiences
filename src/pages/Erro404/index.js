@@ -5,27 +5,27 @@ import {
     Typography,
 } from 'antd';
 
-const Erro404 = () => {
+const Erro404 = (props) => {
     const {
         title,
-    } = this.props;
+    } = props;
 
     return (
         <>
             <Typography.Title>
                 {title}
             </Typography.Title>
-            Luger errado maninho!
+            Not Found!
         </>
     )
 };
 
-Erro404.propTypes = {
+Erro404.defaultProps = {
     title: 'ERRO 404',
-}
+};
 
 Erro404.propTypes = {
     title: PropTypes.string,
-}
+};
 
 export default Erro404;

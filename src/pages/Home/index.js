@@ -2,19 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    Layout,
     Typography,
 } from 'antd';
+import MainLayout from '../../components/Layout/MainLayout';
 
-const Home = () => {
+const Home = props => {
     const {
         title,
-    } = this.props;
+    } = props;
 
     return (
-        <Typography.Title>
-            {title}
-        </Typography.Title>
+        <MainLayout>
+            <Typography.Title>
+                {title}
+            </Typography.Title>
+        </MainLayout>
     )
 };
 
