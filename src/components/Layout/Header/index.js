@@ -14,7 +14,7 @@ const Header = props => {
     return (
         <Layout.Header>
             <Typography.Title style={{ color: 'white' }}>
-                {title}
+                {/* {title} */}
             </Typography.Title>
         </Layout.Header>
     )

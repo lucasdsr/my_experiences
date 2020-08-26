@@ -7,25 +7,41 @@ import {
 import Header from '../Header';
 import Footer from '../Footer';
 
+import './index.css';
+
 const MainLayout = props => {
-    const { content } = props;
+    const {
+        title,
+        children,
+    } = props;
     
     return (
         <Layout>
-            <Header />
-            {content}
+            <Header
+                title={title}
+            />
+            <div className="main-Layout_children">
+                {children}
+            </div>
             <Footer />
         </Layout>
     );
 };
 
 MainLayout.defaultProps = {
+    children: '',
     title: 'MainLayout default title... something looks rong',
 };
 
 MainLayout.propTypes = {
     title: PropTypes.string,
-    content: PropTypes.element.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.object,
+        PropTypes.array,
+    ]),
+
 };
 
 export default MainLayout;
