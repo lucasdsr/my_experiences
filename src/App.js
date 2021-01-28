@@ -7,9 +7,10 @@ import {
   Link
 } from "react-router-dom";
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Erro404 from './pages/Erro404';
+import Home from './pages/home';
+import Login from './pages/login';
+import Erro404 from './pages/erro404';
+import TextsPage from './pages/textsPage';
 
 import './App.css';
 import 'antd/dist/antd.css';
@@ -18,6 +19,10 @@ function App() {
   return (
     <Router>
       <Switch>
+
+        <Route path={'/texts'}>
+          <TextsPage />
+        </Route>
 
         <Route path={'/login'} >
           <Login />
@@ -32,7 +37,7 @@ function App() {
         </Route>
 
         <Route path={'/'} >
-          <Login />
+          <TextsPage />
         </Route>
 
       </Switch>
