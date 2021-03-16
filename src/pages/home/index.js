@@ -7,17 +7,12 @@ import {
     Row,
     Col,
     Card,
-    Typography,
 } from 'antd';
 import MainLayout from '../../components/Layout/MainLayout';
 
 import './index.css';
 
 const Home = props => {
-    // const {
-    //     title,
-    // } = props;
-
     useEffect(() => {
         axios.post('http://localhost:8888/cockpit-master/api/collections/get/Default_post_structure', {
             token: 'e5f881c4a5219e1c2ff03d89573826',

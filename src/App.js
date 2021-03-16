@@ -4,12 +4,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import Home from './pages/home';
 import Login from './pages/login';
 import Erro404 from './pages/erro404';
+import UserProfile from './pages/user';
 import TextsPage from './pages/textsPage';
 
 import './App.css';
@@ -37,7 +37,7 @@ function App() {
         </Route>
 
         <Route path={'/'} >
-          <TextsPage />
+          <UserProfile />
         </Route>
 
       </Switch>
