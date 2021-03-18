@@ -1,19 +1,29 @@
 .main-row {
-    width: 100vw;
-    height: 100vh;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: inline-block !important;
 }
 
 .user-card {
     width: 200px;
-    height: 25vh;
+    min-height: 25vh;
     margin: 0 10px !important;
     border: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 
 .user-card .ant-card-body {
-    padding: 5px;
+    padding: 15px;
 }
 
 .user-photo-row {
     padding: 15px;
+}
+
+.user-info-col {
+    width: 100%;
+}
+
+.user-info-col {
+    display: flex !important;
+    justify-content: center !important;
 }

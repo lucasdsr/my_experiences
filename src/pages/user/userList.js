@@ -4,9 +4,14 @@ import UserController from '../../classes/controllers/user';
 
 import {
     Row,
+    Col,
     Card,
     Avatar,
+    Divider,
+    Typography,
 } from 'antd';
+
+import MainLayout from '../../components/Layout/MainLayout';
 
 import './index.css'
 
@@ -22,7 +27,7 @@ const UserList = () => {
 
     const generateCard = user => {
 
-        const { name, photo, age } = user.getUserData();
+        const { name, photo, age, career, interests } = user.getUserData();
 
         return (
             <Card
@@ -34,25 +39,49 @@ const UserList = () => {
                     </Row>
                 )}
             >
-                <Row justify="center" style={{ display: 'grid' }}>
-                    <Row justify="center" style={{ fontWeight: 'bold' }}>
-                        {name}
+                <Row justify="center">
+                    <Row justify="space-around" style={{ width: '100%' }}>
+                        <Col span={12} style={{ fontWeight: 'bold' }} className="user-info-col" >
+                            {name}
+                        </Col>
+                        <Col span={12} className="user-info-col">
+                            {age} Anos
+                        </Col>
                     </Row>
-                    <Row justify="center">
-                        {age} Anos
+                    <Row justify="center" className="user-info-col">
+                        {career}
                     </Row>
-                    
+                    <Divider />
+                    <Row justify="center" className="user-info-col">
+                        Curte
+                        {` `}
+                        {
+                            interests.reduce((acc, item, i) => {
+                                if (i <= interests.length - 2) return acc.concat(`${item}, `);
+                                return acc.concat(item);
+                            } ,'')
+                        }
+                    </Row>
                 </Row>
             </Card>
         )
     };
 
     return (
-        <Row justify="center" align="middle" className="main-row">
-            {
-                userList.map(user => generateCard(user))
-            }
-        </Row>
+        <MainLayout >
+            <Row className="main-row" align="middle">
+                <Row justify="center" style={{ width: '100%' }}>
+                    <h1>
+                        Usuários
+                    </h1>
+                </Row>
+                <Row justify="center" style={{ width: '100%' }}>
+                    {
+                        userList.map(user => generateCard(user))
+                    }
+                </Row>
+            </Row>
+        </MainLayout>
     )
 }
 
