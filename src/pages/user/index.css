@@ -7,7 +7,7 @@
 .user-card {
     width: 200px;
     min-height: 25vh;
-    margin: 0 10px !important;
+    margin: 10px !important;
     border: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 

@@ -35,18 +35,18 @@ const UserList = () => {
                 className='user-card'
                 cover={(
                     <Row justify="center" className="user-photo-row">
-                        <Avatar size={64} src={photo} />
+                        <Avatar size={96} src={photo} />
                     </Row>
                 )}
             >
                 <Row justify="center">
                     <Row justify="space-around" style={{ width: '100%' }}>
-                        <Col span={12} style={{ fontWeight: 'bold' }} className="user-info-col" >
+                        <span style={{ fontWeight: 'bold' }} className="user-info-col" >
                             {name}
-                        </Col>
-                        <Col span={12} className="user-info-col">
+                        </span>
+                        <span className="user-info-col">
                             {age} Anos
-                        </Col>
+                        </span>
                     </Row>
                     <Row justify="center" className="user-info-col">
                         {career}

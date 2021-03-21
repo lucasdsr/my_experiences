@@ -15,6 +15,14 @@
             "sexual_orientation": "Bisexual",
             "interests": [ "Leitura", "Redes sociais", "Animais de rua" ],
             "photo": "https://cdn.mensagenscomamor.com/content/images/m000324229.jpg?v=0&w=300&h=200"
+        },
+        {
+            "name": "Jonas",
+            "years_old": "22",
+            "profesion": "Piloto",
+            "sexual_orientation": "Outros",
+            "interests": [ "Balé", "Rock", "Computadores", "Esportes" ],
+            "photo": "https://pbs.twimg.com/profile_images/1200264639361277952/uXxuqPtH_400x400.jpg"
         }
     ]
 }
