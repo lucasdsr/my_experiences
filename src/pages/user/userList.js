@@ -20,8 +20,7 @@ const UserList = () => {
     const [userList, setUserList] = useState([]);
 
     useEffect(() => {
-        const controller = new UserController();
-        controller.fetchUsers()
+        UserController.fetchUsers()
             .then((data) => setUserList(data))
     }, [])
 

@@ -1,17 +1,19 @@
 import { users } from '../../userDataSource.json'
 
-import UserModal from '../models/user'
+import UserModel from '../models/user'
 import UserSerializer from '../serializers/user'
 
+function getUsers() {
+    return Promise.resolve(users);
+}
+
+function mapUser(user) {
+    return new UserModel(UserSerializer.serialize(user));
+}
+
 class UserController {
-    fetchUsers() {
-        return new Promise(( resolve ) => {
-            console.log('fetchUsers', );
-            const serializedUsers = users.map(user => new UserSerializer().serialize(user));
-            const usersModal = serializedUsers.map(user => new UserModal(user));
-            
-            resolve(usersModal);
-        });
+    static fetchUsers() {
+        return getUsers().then(u => u.map(mapUser));
     }
 }
 

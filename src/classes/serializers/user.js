@@ -1,8 +1,5 @@
-class userSerialze {
-    serialize(data) {
-
-        console.log('serialize', data);
-
+class UserSerialze {
+    static serialize(data) {
         return {
             name: data.name ?? '',
             photo: data.photo ?? '',
@@ -12,8 +9,8 @@ class userSerialze {
             sexualOrientation: data.sexual_orientation ?? '',
         }
     }
-ß
-    deserialize(data) {
+
+    static deserialize(data) {
         return {
             name: data.name ?? '',
             photo: data.photo ?? '',
@@ -25,4 +22,4 @@ class userSerialze {
     }
 }
 
-export default userSerialze;
+export default UserSerialze;
