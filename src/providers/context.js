@@ -1,3 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export const MyContext = React.createContext({ name: 'MyContext', updateValues: () => {} });
+// import UserModel from '../classes/models/user';
+
+/**
+ * @abstract Employees modal array
+ */
+const employees = [];
+
+const values = {employees}
+
+export const MyContext = React.createContext(values);
+
