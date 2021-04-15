@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
+    Row,
     Layout,
+    Typography,
 } from 'antd';
+
 import Header from '../Header';
 import Footer from '../Footer';
 
@@ -13,14 +16,16 @@ const MainLayout = props => {
     const {
         title,
         children,
+        ...otherprops
     } = props;
     
+
     return (
-        <Layout>
+        <Layout  className="main-Layout_children">
             <Header
                 title={title}
             />
-            <div className="main-Layout_children">
+            <div className="main-body" {...otherprops}>
                 {children}
             </div>
             <Footer />
@@ -30,16 +35,16 @@ const MainLayout = props => {
 
 MainLayout.defaultProps = {
     children: '',
-    title: 'MainLayout default title... something looks rong',
+    title: '',
 };
 
 MainLayout.propTypes = {
     title: PropTypes.string,
     children: PropTypes.oneOfType([
+        PropTypes.array,
         PropTypes.string,
         PropTypes.number,
         PropTypes.object,
-        PropTypes.array,
     ]),
 
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
+    Row,
     Layout,
     Typography,
 } from 'antd';
@@ -12,10 +13,12 @@ const Header = props => {
     } = props;
 
     return (
-        <Layout.Header>
-            <Typography.Title style={{ color: 'white' }}>
-                {/* {title} */}
-            </Typography.Title>
+        <Layout.Header style={{ display: 'flex', alignItems: 'center' }} >
+            <Row justify="center" style={{ width: '100%' }}>
+                <Typography.Title level={2} style={{ color: 'white', margin: 0 }}>
+                    {title}
+                </Typography.Title>
+            </Row>
         </Layout.Header>
     )
 };
