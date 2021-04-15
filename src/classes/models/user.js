@@ -5,39 +5,15 @@ class UserModel {
         this.photo = values.photo;
         this.career = values.career;
         this.interests = values.interests;
-        this.sexualOrientation = values.sexualOrientation;
+        this.sexual_orientation = values.sexual_orientation;
     }
 
-    getUserData() {
-
-        console.log(
-            'getUserData',
-            {
-                age: this.age,
-                name: this.name,
-                photo: this.photo,
-                career: this.career,
-                interests: this.interests,
-                sexualOrientation: this.sexualOrientation,
-            }
-        );
-
-        return {
-            age: this.age,
-            name: this.name,
-            photo: this.photo,
-            career: this.career,
-            interests: this.interests,
-            sexualOrientation: this.sexualOrientation,
-        }
-    }
-
-    getName() {
-        return this.name
-    }
-
-    getAge() {
-        return this.age
+    /**
+     * @abstract Update user data function
+     * @param {object} values object with new user value
+     */
+    setUserData(values) {
+        Object.assign(this, values);
     }
 
 }

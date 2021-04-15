@@ -15,26 +15,12 @@ import './index.css';
 
 const Home = props => {
 
-    const { value, setValue } = useContext(MyContext);
+    const userModal = useContext(MyContext);
 
-    const [count, setCount] = useState(0);
-
-    useEffect(() => console.log(value), [value]);
-
-    useEffect(() => {
-        axios.post('http://localhost:8888/cockpit-master/api/collections/get/Default_post_structure', {
-            token: 'e5f881c4a5219e1c2ff03d89573826',
-        })
-            .then(response => {
-                console.log('RESPONSE:', response);
-            }).catch(err => {
-                console.log('ERR:', err.toString());
-            });
-    }, []);
+    console.log('UserModel', userModal);
 
     const onClick = () => {
-        setValue({ ...value, count })
-        setCount(count + 1);
+        
     };
 
     return (
@@ -43,13 +29,12 @@ const Home = props => {
         >
             <Row
                 gutter={32}
-                // justify="space-around"
+                justify="space-around"
             >
                 {
-                    [1, 2, 3, 4].map(i => (
+                    [0, 1, 2, 3].map(i => (
                         <Col
-                            span={4}
-                            offset={1}
+                            span={5}
                         >
                             <Card
                                 title={`Card_${i}`}
@@ -60,14 +45,14 @@ const Home = props => {
                         </Col>
                     ))
                 }
-            </Row>
-            <Row justify="center" style={{ width: '100%', marginTop: 20 }} >
-                <Button
-                    type="primary"
-                    onClick={onClick}
-                >
-                    Click to change Provider values
-                </Button>
+                <Row justify="center" style={{ width: '100%', marginTop: 20 }} >
+                    <Button
+                        type="primary"
+                        onClick={onClick}
+                    >
+                        Click to change Provider values
+                    </Button>
+                </Row>
             </Row>
         </MainLayout>
     )
