@@ -15,9 +15,9 @@ import './index.css';
 
 const Home = props => {
 
-    const userModal = useContext(MyContext);
+    const userModel = useContext(MyContext);
 
-    console.log('UserModel', userModal);
+    console.log('UserModel', userModel);
 
     const onClick = () => {
         

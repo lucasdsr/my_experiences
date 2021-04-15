@@ -3,7 +3,7 @@ import React from 'react';
 // import UserModel from '../classes/models/user';
 
 /**
- * @abstract Employees modal array
+ * @abstract Employees model array
  */
 const employees = [];
 

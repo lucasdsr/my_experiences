@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import logo from './logo.svg';
 import {
   BrowserRouter as Router,
@@ -6,12 +6,11 @@ import {
   Route,
 } from "react-router-dom";
 
-import { MyContext } from './providers/context.js'
-
 import Home from './pages/home';
 import Login from './pages/login';
-import Erro404 from './pages/erro404';
 import UsersList from './pages/user';
+import Erro404 from './pages/erro404';
+import Employees from './pages/employees';
 import TextsPage from './pages/textsPage';
 
 import './App.css';
@@ -19,10 +18,7 @@ import 'antd/dist/antd.css';
 
 const App = () => {
 
-  const [contextValue, setContextValue] = useState({ contextName: 'MyContext' });
-
   return (
-    <MyContext.Provider value={{ value: contextValue, setValue: setContextValue }}>
       <Router>
         <Switch>
 
@@ -36,6 +32,10 @@ const App = () => {
 
           <Route path={'/user-list'} >
             <UsersList />
+          </Route>
+
+          <Route path={'/employees'} >
+            <Employees />
           </Route>
 
           <Route path={'/home'} >
@@ -52,7 +52,6 @@ const App = () => {
 
         </Switch>
       </Router>
-    </MyContext.Provider>
   );
 }
 
