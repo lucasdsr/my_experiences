@@ -8,7 +8,7 @@ import {
     Typography,
 } from 'antd';
 
-import { InboxOutlined } from '@ant-design/icons';
+import { UserOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
 import Input from '../../components/Inputs'
 import Select from '../../components/Select'
@@ -28,24 +28,45 @@ const NewEmployees = () => {
         4: 'Gerente',
     }
 
-    const initOccupations = useCallback(() => Object.entries(occupations).map(([ key, value ]) => ({
+    const genders = {
+        0: 'Másculino',
+        1: 'Feminino',
+        2: 'Outro',
+    }
+
+    const initOccupationOptions = useCallback(() => Object.entries(occupations).map(([ key, value ]) => ({
         label: value,
         value: key,
     })), [occupations]);
 
-    const occupationOptions = initOccupations();
+    const initGenders = useCallback(() => Object.entries(genders).map(([ key, value ]) => ({
+        label: value,
+        value: key,
+    })), [genders]);
 
+    const occupationOptions = initOccupationOptions();
     console.log('occupationOptions', occupationOptions);
 
+    const genderOptions = initGenders();
+
     const beforeUpload = file => {
+
         console.log('trying to upload file: ', file);
     }
 
     const draggerContent = (
-        <Text>
-            <InboxOutlined style={{ fontSize: 20, marginRight: 5 }}/>
-            Selecione ou arraste uma foto
-        </Text>
+        <div>
+            <Row justify="center" style={{ marginBottom: 5 }}>
+                <UserOutlined style={{ fontSize: 30 }}/>
+            </Row>
+            <Row justify="center" style={{ fontSize: 12 }}>
+                Clique
+                <br />
+                Ou
+                <br />
+                Arraste
+            </Row>
+        </div>
     );
 
     return (
@@ -57,14 +78,24 @@ const NewEmployees = () => {
             </Row>
             <Form
                 form={form}
+                style={{ width: 400 }}
                 layout="vertical"
                 name="new_employees"
                 onFinish={values => console.log('finished: ', values)}
             >
-
-                <Row style={{ width: '100%' }}>
-                    <Col span={17}>
-                        {/* name */}
+                <Row justify="center">
+                    <Dragger
+                        form={form}
+                        label="Foto"
+                        name="photo"
+                        style={{ width: 100 }}
+                        content={draggerContent}
+                        beforeUpload={beforeUpload}
+                        accept=".jpg, .jpeg, .png, .webp"
+                    />
+                </Row>
+                <Row>
+                    <Col lg={18}>
                         <Input
                             form={form}
                             name="name"
@@ -73,45 +104,53 @@ const NewEmployees = () => {
                             placeholder="Nome do funcionário"
                         />
                     </Col>
-                    <Col span={6} offset={1}>
-                        {/* age */}
+                    <Col lg={{ span: 5, offset: 1 }}>
                         <Input
-                            form={form}
                             name="age"
+                            form={form}
                             label="Idade"
                             maxLength={3}
                             placeholder="Idade"
                         />
                     </Col>
                 </Row>
-                {/* occupation */}
                 <Select
+                    form={form}
+                    allowClear
+                    name="gender"
+                    label="Gênero"
+                    options={genderOptions}
+                    placeholder="Gênero do funcionário"
+                />
+                <Select
+                    allowClear
                     form={form}
                     label="Cargo"
                     name="occupation"
                     options={occupationOptions}
                     placeholder="Cargo do funcionário"
                 />
-                {/* photo */}
-
-                <Dragger
-                    form={form}
-                    label="Foto"
-                    name="photo"
-                    content={draggerContent}
-                    beforeUpload={beforeUpload}
-                />
-
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    style={{ marginLeft: 'auto' }}
-                >
-                    Pronto!
-                </Button>
+                <Row justify="space-between">
+                    <Button
+                        type="danger"
+                    >
+                        Pronto!
+                    </Button>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                    >
+                        Pronto!
+                    </Button>
+                </Row>
+                <Row justify="end" align="middle" style={{ marginTop: 100 }}>
+                    <Text className="clickable-text" onClick={() => console.log('clicado')}>
+                        Ir para listagem de funcionários
+                        <ArrowRightOutlined style={{ fontSize: 12, marginLeft: 5 }} />
+                    </Text>
+                </Row>
 
             </Form>
-
         </Row>
     )
 

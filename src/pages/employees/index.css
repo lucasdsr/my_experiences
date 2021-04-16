@@ -1,3 +1,11 @@
 .new-employees_inputs {
     width: 300px !important;
 }
+
+.clickable-text {
+    cursor: pointer;
+}
+
+.clickable-text:hover {
+    color: #1890ff;
+}
