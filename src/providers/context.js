@@ -2,12 +2,11 @@ import React from 'react';
 
 // import UserModel from '../classes/models/user';
 
+const employees = [];
+const addEmployees = newEmployee => employees.push(newEmployee);
+
 /**
  * @abstract Employees model array
  */
-const employees = [];
-
-const values = {employees}
-
-export const MyContext = React.createContext(values);
+export const MyContext = React.createContext({ employees, addEmployees });
 

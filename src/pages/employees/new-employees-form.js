@@ -1,4 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
+
+import { MyContext } from '../../providers/context';
+
+import EmployeeModel from '../../classes/models/employees';
 
 import {
     Row, 
@@ -10,6 +14,8 @@ import {
 
 import { UserOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
+import { Link } from 'react-router-dom';
+
 import Input from '../../components/Inputs'
 import Select from '../../components/Select'
 import { Dragger } from '../../components/Uploads'
@@ -19,6 +25,10 @@ const { Title, Text } = Typography;
 const NewEmployees = () => {
 
     const [form] = Form.useForm();
+
+    const { addEmployees } = useContext(MyContext);
+
+    const [loading, setLoading] = useState(false);
 
     const occupations = {
         0: 'Estagiário',
@@ -45,12 +55,10 @@ const NewEmployees = () => {
     })), [genders]);
 
     const occupationOptions = initOccupationOptions();
-    console.log('occupationOptions', occupationOptions);
 
     const genderOptions = initGenders();
 
-    const beforeUpload = file => {
-
+    const beforeUpload = file => { 
         console.log('trying to upload file: ', file);
     }
 
@@ -69,6 +77,21 @@ const NewEmployees = () => {
         </div>
     );
 
+    const onFinish = values => {
+        setLoading(true);
+
+        if (values.photo.fileList) delete values.photo.fileList;
+
+        Promise.resolve()
+            .then(() => addEmployees(new EmployeeModel(values)))
+            .then(() => setLoading(false));
+    }
+
+    // printa os funcionárioc quando forem sendo cadastrados.
+    // useEffect(() => {
+    //     console.log('employeesList:', employees);
+    // }, []);
+
     return (
         <Row justify="center" >
             <Row justify="center" style={{ width: '100%', margin: '20px 0' }}>
@@ -78,10 +101,10 @@ const NewEmployees = () => {
             </Row>
             <Form
                 form={form}
-                style={{ width: 400 }}
                 layout="vertical"
                 name="new_employees"
-                onFinish={values => console.log('finished: ', values)}
+                style={{ width: 400 }}
+                onFinish={onFinish}
             >
                 <Row justify="center">
                     <Dragger
@@ -133,8 +156,9 @@ const NewEmployees = () => {
                 <Row justify="space-between">
                     <Button
                         type="danger"
+                        onClick={() => form.resetFields()}
                     >
-                        Pronto!
+                        Apagar formulário
                     </Button>
                     <Button
                         type="primary"
@@ -144,10 +168,12 @@ const NewEmployees = () => {
                     </Button>
                 </Row>
                 <Row justify="end" align="middle" style={{ marginTop: 100 }}>
-                    <Text className="clickable-text" onClick={() => console.log('clicado')}>
-                        Ir para listagem de funcionários
-                        <ArrowRightOutlined style={{ fontSize: 12, marginLeft: 5 }} />
-                    </Text>
+                    <Link to="/employees-list">
+                        <Text className="clickable-text">
+                            Ir para o quadro de funcionários
+                            <ArrowRightOutlined style={{ fontSize: 12, marginLeft: 5 }} />
+                        </Text>
+                    </Link>
                 </Row>
 
             </Form>

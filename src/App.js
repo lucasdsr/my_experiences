@@ -10,7 +10,7 @@ import Home from './pages/home';
 import Login from './pages/login';
 import UsersList from './pages/user';
 import Erro404 from './pages/erro404';
-import Employees from './pages/employees';
+import { NewEmployees, EmployeesList } from './pages/employees';
 import TextsPage from './pages/textsPage';
 
 import './App.css';
@@ -35,7 +35,11 @@ const App = () => {
           </Route>
 
           <Route path={'/employees'} >
-            <Employees />
+            <NewEmployees />
+          </Route>
+
+          <Route path={'/employees-list'} >
+            <EmployeesList />
           </Route>
 
           <Route path={'/home'} >
