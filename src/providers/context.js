@@ -1,9 +1,14 @@
 import React from 'react';
 
-// import UserModel from '../classes/models/user';
+import storage from '../classes/storage';
 
-const employees = [];
+import EmployeesModel from '../classes/models/employees';
+
+const { getEmployeesList } = storage;
+
 const addEmployees = newEmployee => employees.push(newEmployee);
+
+const employees = getEmployeesList().map(employee => new EmployeesModel(employee)) ?? [];
 
 /**
  * @abstract Employees model array

@@ -6,7 +6,6 @@ class EmployeesList {
     }
 
     addEmployee(newEmployee) {
-        console.log('addEmployee', newEmployee);
         this.list.push(newEmployee);
         this.length += 1;
     }

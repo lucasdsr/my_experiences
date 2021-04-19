@@ -18,8 +18,6 @@ const EmployeeCard = props => {
         occupation,
     } = props;
 
-    console.log('EmployeesCard file: ', props);
-
     return (
         <Card
             hoverable
@@ -56,7 +54,7 @@ EmployeeCard.defaultProps = {
 }
 
 EmployeeCard.propTypes = {
-    age: PropTypes.number,
+    age: PropTypes.string,
     name: PropTypes.string,
     photo: PropTypes.string, 
     occupation: PropTypes.string,

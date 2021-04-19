@@ -1,10 +1,10 @@
 class Employee  {
-    constructor (values) {
-        this.age = values.age;
-        this.name = values.name;
-        this.photo = values.photo;
-        this.gender = values.gender;
-        this.occupation = values.occupation;
+    constructor (values = {}) {
+        this.age = values.age ?? '';
+        this.name = values.name ?? '';
+        this.photo = values.photo ?? '';
+        this.gender = values.gender ?? '';
+        this.occupation = values.occupation ?? '';
     }
     
     /**

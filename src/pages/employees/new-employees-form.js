@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 
+import storage from '../../classes/storage';
 import { MyContext } from '../../providers/context';
-import EmployeeModel from '../../classes/models/employees';
+import EmployeesModel from '../../classes/models/employees';
 
 import {
     Row, 
@@ -27,7 +28,8 @@ const NewEmployees = () => {
 
     const [form] = Form.useForm();
 
-    const { addEmployees } = useContext(MyContext);
+    const { setEmployeesList, getEmployeesList } = storage;
+    const { employees, addEmployees } = useContext(MyContext);
 
     const [loading, setLoading] = useState(false);
     const [photoInBase64, setPhotoInBase64] = useState('');
@@ -36,7 +38,7 @@ const NewEmployees = () => {
         0: 'Estagiário',
         1: 'Programador Júnior',
         2: 'Programador Pleno',
-        3: 'Programador Sénior',
+        3: 'Programador Sênior',
         4: 'Gerente',
     }
 
@@ -67,7 +69,11 @@ const NewEmployees = () => {
     };
 
     const beforeUpload = file => { 
-        console.log('trying to upload file: ', file);
+        if (file.size > 1000000) {
+            message.error('Tamanho limite do arquivo: 1MB');
+            return Promise.reject()
+        }
+
         getBase64(file);
     }
 
@@ -84,6 +90,14 @@ const NewEmployees = () => {
                 Arraste
             </Row>
         </div>
+    );
+
+    const uploadedImage = (
+        <img
+            alt="no_image"
+            src={photoInBase64}
+            style={{ objectFit: 'cover', width: '100%'}}
+        />
     );
 
     const formatValues = values => {
@@ -103,14 +117,24 @@ const NewEmployees = () => {
     };
 
     const onFinish = values => {
+        if (!values) return 0;
         setLoading(true);
 
         Promise.resolve()
-            .then(() => addEmployees(new EmployeeModel(formatValues(values))))
-            .then(() => form.resetFields())
-            .then(() => setLoading(false))
-            .then(() => message.success('Funcionário adicionado!'));
+            .then(() => values && addEmployees(new EmployeesModel(formatValues(values))))
+            .then(() => setEmployeesList(employees))
+            .then(() => { form.resetFields(); setPhotoInBase64('') })
+            .then(() => message.success('Funcionário adicionado!'))
+            .finally(() => setLoading(false));
     }
+
+    useEffect(() => {
+        const addCurrentEmployees = () => {
+            const employeesModels = getEmployeesList().map(employee => new EmployeesModel(employee));
+            if(!employees.length && employeesModels.length) addEmployees(...employeesModels);
+        }
+        addCurrentEmployees();
+    }, []);
 
     return (
         <MainLayout title="Funcionários" loading={loading}>
@@ -133,9 +157,10 @@ const NewEmployees = () => {
                             label="Foto"
                             name="photo"
                             style={{ width: 100 }}
-                            content={draggerContent}
                             beforeUpload={beforeUpload}
                             accept=".jpg, .jpeg, .png, .webp"
+                            onRemove={() => setPhotoInBase64('')}
+                            content={photoInBase64 ? uploadedImage : draggerContent}
                         />
                     </Row>
                     <Row>
