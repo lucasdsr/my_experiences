@@ -9,6 +9,7 @@ import {
     Col,
     Form,
     Button,
+    message,
     Typography,
 } from 'antd';
 
@@ -19,6 +20,7 @@ import { Link } from 'react-router-dom';
 import Input from '../../components/Inputs'
 import Select from '../../components/Select'
 import { Dragger } from '../../components/Uploads'
+import MainLayout from '../../components/Layout/MainLayout';
 
 const { Title, Text } = Typography;
 
@@ -29,6 +31,7 @@ const NewEmployees = () => {
     const { addEmployees } = useContext(MyContext);
 
     const [loading, setLoading] = useState(false);
+    const [photoInBase64, setPhotoInBase64] = useState('');
 
     const occupations = {
         0: 'Estagiário',
@@ -58,8 +61,15 @@ const NewEmployees = () => {
 
     const genderOptions = initGenders();
 
+    const getBase64 = img => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => setPhotoInBase64(reader.result));
+        reader.readAsDataURL(img);
+    };
+
     const beforeUpload = file => { 
         console.log('trying to upload file: ', file);
+        getBase64(file);
     }
 
     const draggerContent = (
@@ -77,107 +87,120 @@ const NewEmployees = () => {
         </div>
     );
 
+    const formatValues = values => {
+
+        const {
+            photo,
+            occupation: occupationKey,
+        } = values;
+
+        if (photo) {
+            if (photo.fileList) delete photo.fileList;
+            values.photo = photoInBase64;
+        }
+        if (occupationKey) values.occupation = occupations[occupationKey];
+
+        return values;
+    };
+
     const onFinish = values => {
         setLoading(true);
 
-        if (values.photo.fileList) delete values.photo.fileList;
-
         Promise.resolve()
-            .then(() => addEmployees(new EmployeeModel(values)))
-            .then(() => setLoading(false));
+            .then(() => addEmployees(new EmployeeModel(formatValues(values))))
+            .then(() => form.resetFields())
+            .then(() => setLoading(false))
+            .then(() => message.success('Funcionário adicionado!'));
     }
 
-    // printa os funcionárioc quando forem sendo cadastrados.
-    // useEffect(() => {
-    //     console.log('employeesList:', employees);
-    // }, []);
-
     return (
-        <Row justify="center" >
-            <Row justify="center" style={{ width: '100%', margin: '20px 0' }}>
-                <Title level={3} >
-                    Cadastre um novo funcionário
-                </Title>
-            </Row>
-            <Form
-                form={form}
-                layout="vertical"
-                name="new_employees"
-                style={{ width: 400 }}
-                onFinish={onFinish}
-            >
-                <Row justify="center">
-                    <Dragger
+        <MainLayout title="Funcionários" loading={loading}>
+            <Row justify="center" >
+                <Row justify="center" style={{ width: '100%', margin: '20px 0' }}>
+                    <Title level={3} >
+                        Cadastre um novo funcionário
+                    </Title>
+                </Row>
+                <Form
+                    form={form}
+                    layout="vertical"
+                    name="new_employees"
+                    style={{ width: 400 }}
+                    onFinish={onFinish}
+                >
+                    <Row justify="center">
+                        <Dragger
+                            form={form}
+                            label="Foto"
+                            name="photo"
+                            style={{ width: 100 }}
+                            content={draggerContent}
+                            beforeUpload={beforeUpload}
+                            accept=".jpg, .jpeg, .png, .webp"
+                        />
+                    </Row>
+                    <Row>
+                        <Col lg={18}>
+                            <Input
+                                form={form}
+                                name="name"
+                                label="Nome"
+                                maxLength={50}
+                                placeholder="Nome do funcionário"
+                            />
+                        </Col>
+                        <Col lg={{ span: 5, offset: 1 }}>
+                            <Input
+                                name="age"
+                                form={form}
+                                label="Idade"
+                                maxLength={3}
+                                placeholder="Idade"
+                            />
+                        </Col>
+                    </Row>
+                    <Select
                         form={form}
-                        label="Foto"
-                        name="photo"
-                        style={{ width: 100 }}
-                        content={draggerContent}
-                        beforeUpload={beforeUpload}
-                        accept=".jpg, .jpeg, .png, .webp"
+                        allowClear
+                        name="gender"
+                        label="Gênero"
+                        options={genderOptions}
+                        placeholder="Gênero do funcionário"
                     />
-                </Row>
-                <Row>
-                    <Col lg={18}>
-                        <Input
-                            form={form}
-                            name="name"
-                            label="Nome"
-                            maxLength={50}
-                            placeholder="Nome do funcionário"
-                        />
-                    </Col>
-                    <Col lg={{ span: 5, offset: 1 }}>
-                        <Input
-                            name="age"
-                            form={form}
-                            label="Idade"
-                            maxLength={3}
-                            placeholder="Idade"
-                        />
-                    </Col>
-                </Row>
-                <Select
-                    form={form}
-                    allowClear
-                    name="gender"
-                    label="Gênero"
-                    options={genderOptions}
-                    placeholder="Gênero do funcionário"
-                />
-                <Select
-                    allowClear
-                    form={form}
-                    label="Cargo"
-                    name="occupation"
-                    options={occupationOptions}
-                    placeholder="Cargo do funcionário"
-                />
-                <Row justify="space-between">
-                    <Button
-                        type="danger"
-                        onClick={() => form.resetFields()}
-                    >
-                        Apagar formulário
-                    </Button>
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                    >
-                        Pronto!
-                    </Button>
-                </Row>
-                <Row justify="end" align="middle" style={{ marginTop: 100 }}>
-                    <Link to="/employees-list">
-                        <Text className="clickable-text">
-                            Ir para o quadro de funcionários
-                            <ArrowRightOutlined style={{ fontSize: 12, marginLeft: 5 }} />
-                        </Text>
-                    </Link>
-                </Row>
+                    <Select
+                        allowClear
+                        form={form}
+                        label="Cargo"
+                        name="occupation"
+                        options={occupationOptions}
+                        placeholder="Cargo do funcionário"
+                    />
+                    <Row justify="space-between">
+                        <Button
+                            type="danger"
+                            onClick={() => form.resetFields()}
+                        >
+                            Apagar formulário
+                        </Button>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                        >
+                            Pronto!
+                        </Button>
+                    </Row>
+                    <Row justify="end" align="middle" style={{ marginTop: 100 }}>
+                        <Link to="/employees-list">
+                            <Text className="clickable-text">
+                                Ir para o quadro de funcionários
+                                <ArrowRightOutlined style={{ fontSize: 12, marginLeft: 5 }} />
+                            </Text>
+                        </Link>
+                    </Row>
 
-            </Form>
-        </Row>
+                </Form>
+            </Row>
+        </MainLayout>
     )
 
 }

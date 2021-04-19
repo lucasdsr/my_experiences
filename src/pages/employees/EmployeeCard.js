@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -20,23 +20,13 @@ const EmployeeCard = props => {
 
     console.log('EmployeesCard file: ', props);
 
-    const [url, setUrl] = useState('');
-
-    const getBase64 = img => {
-        const reader = new FileReader();
-        reader.addEventListener('load', () => setUrl(reader.result));
-        reader.readAsDataURL(img);
-    };
-
-    useEffect(() => getBase64(photo), []);
-
     return (
         <Card
             hoverable
             className='user-card'
             cover={(
                 <Row justify="center" className="user-photo-row">
-                    <Avatar size={96} src={url} />
+                    <Avatar size={96} src={photo} />
                 </Row>
             )}
         >
