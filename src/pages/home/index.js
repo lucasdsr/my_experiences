@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { MyContext } from '../../providers/context.js';
-
-import axios from 'axios';
 
 import {
     Row,

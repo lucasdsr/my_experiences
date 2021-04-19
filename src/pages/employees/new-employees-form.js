@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 
 import { MyContext } from '../../providers/context';
-
 import EmployeeModel from '../../classes/models/employees';
 
 import {

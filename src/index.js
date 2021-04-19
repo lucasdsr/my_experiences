@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { MyContext } from './providers/context';
-
 ReactDOM.render(
   <React.StrictMode>
     <App style={{ flexDirection: 'column' }}/>
