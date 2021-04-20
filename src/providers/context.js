@@ -8,10 +8,7 @@ const { getEmployeesList } = storage;
 
 const addEmployees = newEmployee => employees.push(newEmployee);
 
-const employees = getEmployeesList().map(employee => new EmployeesModel(employee)) ?? [];
+const employees = getEmployeesList().map(employee => new EmployeesModel(employee));
 
-/**
- * @abstract Employees model array
- */
 export const MyContext = React.createContext({ employees, addEmployees });
 

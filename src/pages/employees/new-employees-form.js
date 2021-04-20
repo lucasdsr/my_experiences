@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 
 import storage from '../../classes/storage';
 import { MyContext } from '../../providers/context';
@@ -28,7 +28,7 @@ const NewEmployees = () => {
 
     const [form] = Form.useForm();
 
-    const { setEmployeesList, getEmployeesList } = storage;
+    const { setEmployeesList } = storage;
     const { employees, addEmployees } = useContext(MyContext);
 
     const [loading, setLoading] = useState(false);
@@ -127,14 +127,6 @@ const NewEmployees = () => {
             .then(() => message.success('Funcionário adicionado!'))
             .finally(() => setLoading(false));
     }
-
-    useEffect(() => {
-        const addCurrentEmployees = () => {
-            const employeesModels = getEmployeesList().map(employee => new EmployeesModel(employee));
-            if(!employees.length && employeesModels.length) addEmployees(...employeesModels);
-        }
-        addCurrentEmployees();
-    }, []);
 
     return (
         <MainLayout title="Funcionários" loading={loading}>
